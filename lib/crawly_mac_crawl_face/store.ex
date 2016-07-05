@@ -46,4 +46,4 @@ defmodule CrawlyMacCrawlFace.Store do
 
 end
 
-# CrawlyMacCrawlFace.Store.add("http://www.textmaster.com/")
+# CrawlyMacCrawlFace.Store.add("http://staging.textmaster.com/")

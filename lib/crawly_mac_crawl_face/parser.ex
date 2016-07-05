@@ -16,6 +16,6 @@ defmodule CrawlyMacCrawlFace.Parser do
   defp same_domain?(_, nil), do: false
   defp same_domain?(nil, _), do: false
   defp same_domain?(x, y) do
-    String.contains?(x, y)
+    String.ends_with?(x, y)
   end
 end

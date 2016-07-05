@@ -10,8 +10,8 @@ defmodule CrawlyMacCrawlFace.WorkerPool do
     pool_options = [
       {:name, {:local, :worker_pool}},
       {:worker_module, CrawlyMacCrawlFace.Worker},
-      {:size, 1000},
-      {:max_overflow, 1000}
+      {:size, 100},
+      {:max_overflow, 0}
     ]
 
     children = [

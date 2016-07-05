@@ -8,7 +8,9 @@ defmodule CrawlyMacCrawlFace do
 
     children = [
       worker(CrawlyMacCrawlFace.Store, []),
-      worker(CrawlyMacCrawlFace.WorkerPool, [])
+      worker(CrawlyMacCrawlFace.WorkerPool, []),
+      worker(CrawlyMacCrawlFace.Transport.AMQP.ConnectionPool, []),
+      worker(CrawlyMacCrawlFace.Transport.AMQP.ChannelPool, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

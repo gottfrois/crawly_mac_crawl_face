@@ -35,7 +35,8 @@ defmodule CrawlyMacCrawlFace.Mixfile do
       {:amqp, "~> 0.1.4"},
       {:connection, "~> 1.0.2"},
       {:uuid, "~> 1.1"},
-      {:timex, "~> 2.1.4"}
+      {:timex, "~> 2.1.4"},
+      {:poison, "~> 2.0"}
     ]
   end
 end

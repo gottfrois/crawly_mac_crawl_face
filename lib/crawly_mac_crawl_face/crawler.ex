@@ -1,7 +1,11 @@
 defmodule CrawlyMacCrawlFace.Crawler do
 
-  @timeout 10000
+  @timeout 15_000
 
+  # basic_auth: {
+  #   "username",
+  #   "password"
+  # }
   def fetch(url, depth) do
     handle_response(
       url,
@@ -32,6 +36,10 @@ defmodule CrawlyMacCrawlFace.Crawler do
 
   defp handle_response(_, _, %HTTPotion.Response{status_code: 404}) do
     {:error, :not_found}
+  end
+
+  defp handle_response(_, _, %HTTPotion.Response{status_code: 500}) do
+    {:error, :server_error}
   end
 
   defp handle_response(_, _, %HTTPotion.ErrorResponse{message: message}) do

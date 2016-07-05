@@ -27,10 +27,18 @@ defmodule CrawlyMacCrawlFace.Worker do
     {:noreply, state}
   end
 
+  def handle_info({_, {:error, :req_timedout}}, state) do
+    {:noreply, state}
+  end
+
   def handle_cast({:crawl, url, depth}, state) do
     case CrawlyMacCrawlFace.Crawler.fetch(url, depth) do
       {:ok, body} ->
         Logger.info "#{inspect self} [#{depth}] Crawled #{url}: #{String.length(body)}"
+        CrawlyMacCrawlFace.Transport.AMQP.ChannelPool.publish("page.crawled", Poison.encode!(%{ url: url, depth: depth, body: body }))
+      {:error, "retry_later"} ->
+        Logger.info "#{inspect self} [#{depth}] Must retry #{url}"
+        CrawlyMacCrawlFace.Store.add(url, depth)
       {:error, reason} ->
         Logger.info "#{inspect self} [#{depth}] Error fetching #{url}: #{reason}"
     end
